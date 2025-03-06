@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Exercise Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+      body { padding-top: 70px; }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="{{ url_for('index') }}">Exercise Dashboard</a>
+      <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('upload') }}">Upload Data</a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+  
+  <!-- Main Content -->
+  <div class="container">
+      <h1 class="my-4">Your Exercise History</h1>
+      {% if uploads %}
+          <div class="list-group">
+              {% for entry in uploads %}
+                  <a href="{{ url_for('dashboard', filename=entry.filename) }}" class="list-group-item list-group-item-action">
+                      <strong>{{ entry.date }}</strong> - {{ entry.exercise | capitalize }}
+                  </a>
+              {% endfor %}
+          </div>
+      {% else %}
+          <div class="alert alert-info" role="alert">
+              No data uploaded yet. <a href="{{ url_for('upload') }}" class="alert-link">Upload your exercise data</a>.
+          </div>
+      {% endif %}
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
