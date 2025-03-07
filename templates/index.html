@@ -1,45 +1,194 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Exercise Dashboard</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <style>
-      body { padding-top: 70px; }
+      /* Background Image Styling */
+      body { 
+          padding-top: 80px; 
+          background: url("{{ url_for('static', filename='gym_pic.jpg') }}") no-repeat center center fixed; 
+          background-size: cover; 
+          color: white; 
+      }
+
+      /* Overlay for Readability */
+      .overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);  /* Dark overlay */
+          z-index: 1;
+      }
+
+      /* Main Content Styling */
+      .container { 
+          max-width: 700px; 
+          background: rgba(0, 0, 0, 0.8); 
+          padding: 25px; 
+          border-radius: 15px; 
+          box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+          position: relative;
+          z-index: 2;
+      }
+
+      /* Navbar Customization */
+      .navbar {
+          background: rgba(0, 0, 0, 0.9) !important;
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+          z-index: 3;
+      }
+
+      /* Refined Navbar Brand/Title */
+      .navbar-brand {
+          font-size: 2.5rem !important;  /* Bigger font size */
+          font-weight: 700 !important;   /* Bold font weight */
+          letter-spacing: 1px;          /* Slightly spaced letters */
+          color: white !important;
+          background: linear-gradient(90deg, #3a86ff, #00bfff);  /* Gradient text */
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          padding: 5px 15px;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+          animation: fadeIn 1.5s ease-in-out;  /* Fade-in animation */
+      }
+
+      @keyframes fadeIn {
+          0% {
+              opacity: 0;
+              transform: translateY(-20px);
+          }
+          100% {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      .navbar-brand:hover {
+          opacity: 0.9;
+      }
+
+      /* Exercise Card Styling */
+      .exercise-card {
+          background: rgba(255, 255, 255, 0.1);
+          border: none;
+          border-radius: 10px;
+          margin-bottom: 15px;
+          transition: all 0.2s ease-in-out;
+      }
+
+      .exercise-card:hover {
+          background: rgba(255, 255, 255, 0.15);
+          transform: scale(1.01);
+      }
+
+      .exercise-icon {
+          font-size: 1.5rem;
+          margin-right: 10px;
+      }
+
+      /* Refined Button Styling */
+      .btn-primary {
+          background: #3a86ff;
+          border: none;
+          font-weight: 500;
+          transition: all 0.2s ease-in-out;
+      }
+
+      .btn-primary:hover {
+          background: #4a94ff;
+          transform: translateY(-1px);
+      }
+
+      /* Upload Button - Refined */
+      .upload-btn {
+          background: #2d6a4f;
+          border: none;
+          font-weight: 500;
+          color: white;
+          padding: 10px 20px;
+          border-radius: 6px;
+          transition: all 0.2s ease-in-out;
+          text-decoration: none;
+          display: inline-block;
+          margin-top: 20px;
+      }
+
+      .upload-btn:hover {
+          background: #40916c;
+          transform: translateY(-1px);
+      }
+
+      /* Heading */
+      h1 {
+          font-weight: 600;
+          letter-spacing: 0.5px;
+      }
+
+      /* Exercise Title */
+      .exercise-title {
+          text-transform: capitalize;
+          font-weight: 600;
+      }
+
+      /* No Data Badge */
+      .badge {
+          font-size: 0.8rem;
+          padding: 5px 10px;
+          border-radius: 20px;
+      }
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="{{ url_for('index') }}">Exercise Dashboard</a>
-      <div class="collapse navbar-collapse">
-          <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('upload') }}">Upload Data</a>
-              </li>
-          </ul>
+
+  <!-- Background Overlay -->
+  <div class="overlay"></div>
+
+  <!-- Navbar with Enhanced Title -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+          <a class="navbar-brand" href="{{ url_for('index') }}">🏋️ Exercise Dashboard</a>
       </div>
   </nav>
-  
+
   <!-- Main Content -->
-  <div class="container">
-      <h1 class="my-4">Your Exercise History</h1>
-      {% if uploads %}
-          <div class="list-group">
-              {% for entry in uploads %}
-                  <a href="{{ url_for('dashboard', filename=entry.filename) }}" class="list-group-item list-group-item-action">
-                      <strong>{{ entry.date }}</strong> - {{ entry.exercise | capitalize }}
-                  </a>
-              {% endfor %}
-          </div>
-      {% else %}
-          <div class="alert alert-info" role="alert">
-              No data uploaded yet. <a href="{{ url_for('upload') }}" class="alert-link">Upload your exercise data</a>.
-          </div>
-      {% endif %}
+  <div class="container text-center mt-5 animate__animated animate__fadeIn">
+      <h1 class="mb-4">Your Exercise Tracking</h1>
+
+      <div class="exercise-list">
+          {% for exercise_type, data in exercise_groups.items() %}
+              <div class="exercise-card p-3 d-flex justify-content-between align-items-center">
+                  <div>
+                      {% if exercise_type == 'pushups' %}
+                          <span class="exercise-icon">💪</span>
+                      {% elif exercise_type == 'squats' %}
+                          <span class="exercise-icon">🦵</span>
+                      {% elif exercise_type == 'pullups' %}
+                          <span class="exercise-icon">🏋️</span>
+                      {% elif exercise_type == 'lunges' %}
+                          <span class="exercise-icon">🏃</span>
+                      {% elif exercise_type == 'plank' %}
+                          <span class="exercise-icon">🧘</span>
+                      {% endif %}
+                      <span class="exercise-title">{{ exercise_type }}</span>
+                      {% if not data.has_data %}
+                          <span class="badge bg-secondary ms-2">No data</span>
+                      {% endif %}
+                  </div>
+                  <a href="{{ url_for('dashboard', exercise_type=exercise_type) }}" class="btn btn-primary btn-sm" {% if not data.has_data %}disabled{% endif %}>View</a>
+              </div>
+          {% endfor %}
+      </div>
+
+      <!-- Upload New Data Button - Refined -->
+      <a href="{{ url_for('upload') }}" class="upload-btn">📤 Upload New Data</a>
+
   </div>
-  
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
