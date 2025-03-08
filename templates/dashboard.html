@@ -161,7 +161,6 @@
   
   <!-- Dashboard Content -->
   <div class="container">
-      
       {% if plots %}
           <!-- Progress Chart Section -->
           {% if progress_chart %}
@@ -179,8 +178,18 @@
               <div class="row">
                   {% for plot in plots %}
                       <div class="col-lg-6">
+                          <!-- 3D Accelerometer Plot -->
                           <div class="chart-card">
-                              <div class="chart-container" id="chart-{{ loop.index }}"></div>
+                              <div class="chart-container" id="acc-3d-plot-{{ loop.index }}"></div>
+                              <div class="card-body text-center">
+                                  <h5 class="card-title">{{ plot.date }}</h5>
+                                  <p class="card-text">Your Accuracy: <strong>{{ plot.accuracy }}%</strong></p>
+                              </div>
+                          </div>
+                          
+                          <!-- 3D Gyroscope Plot -->
+                          <div class="chart-card">
+                              <div class="chart-container" id="gyro-3d-plot-{{ loop.index }}"></div>
                               <div class="card-body text-center">
                                   <h5 class="card-title">{{ plot.date }}</h5>
                                   <p class="card-text">Your Accuracy: <strong>{{ plot.accuracy }}%</strong></p>
@@ -213,8 +222,13 @@
   
   {% for plot in plots %}
       <script>
-          var graph{{ loop.index }} = {{ plot.graphJSON | safe }};
-          Plotly.newPlot('chart-{{ loop.index }}', graph{{ loop.index }}.data, graph{{ loop.index }}.layout);
+          // Render 3D Accelerometer Plot
+          var acc3dGraph{{ loop.index }} = JSON.parse('{{ plot.acc_3d_graphJSON | safe }}');
+          Plotly.newPlot('acc-3d-plot-{{ loop.index }}', acc3dGraph{{ loop.index }}.data, acc3dGraph{{ loop.index }}.layout);
+
+          // Render 3D Gyroscope Plot
+          var gyro3dGraph{{ loop.index }} = JSON.parse('{{ plot.gyro_3d_graphJSON | safe }}');
+          Plotly.newPlot('gyro-3d-plot-{{ loop.index }}', gyro3dGraph{{ loop.index }}.data, gyro3dGraph{{ loop.index }}.layout);
       </script>
   {% endfor %}
   

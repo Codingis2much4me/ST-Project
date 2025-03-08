@@ -1,19 +1,22 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
-import csv
+import pandas as pd
 from datetime import datetime
 import plotly
 import plotly.graph_objs as go
 import json
-import pandas as pd  # Add pandas for CSV handling
+from model import load_model, predict_form  # Import the model functions
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['GOLDEN_DATA_FOLDER'] = 'golden_data'  # Folder for golden data
 app.config['ALLOWED_EXTENSIONS'] = {'csv'}
 
-# Ensure upload folder exists
+# Ensure upload and golden data folders exist
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
+if not os.path.exists(app.config['GOLDEN_DATA_FOLDER']):
+    os.makedirs(app.config['GOLDEN_DATA_FOLDER'])
 
 # Helper function to check file extension
 def allowed_file(filename):
@@ -56,10 +59,21 @@ def upload():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
 
-            # Parse CSV and extract data
+            # Load the corresponding trained model
+            try:
+                model = load_model(exercise_type)
+            except FileNotFoundError:
+                return f"No trained model found for exercise: {exercise_type}", 404
+
+            # Load the user's CSV file
             user_df = pd.read_csv(filepath)
-            total_count = len(user_df)
-            correct_count = user_df[user_df['label'] == 'correct_form'].shape[0]
+
+            # Predict form correctness using the trained model
+            predictions = predict_form(model, user_df)
+
+            # Calculate accuracy
+            total_count = len(predictions)
+            correct_count = sum(predictions)  # Assuming 1 = proper form, 0 = improper form
             accuracy = (correct_count / total_count * 100) if total_count > 0 else 0
 
             # Add exercise data to the list
@@ -107,30 +121,108 @@ def dashboard(exercise_type):
         progress_dates.append(entry['display_date'])
         progress_accuracies.append(entry['accuracy'])
 
-        user_df = pd.read_csv(filepath)
-        
-        # Calculate performance metrics
-        total_count = len(user_df)
-        correct_count = user_df[user_df['label'] == 'correct_form'].shape[0]
-        user_accuracy = (correct_count / total_count * 100) if total_count > 0 else 0
-        # For golden data we assume 100% correct (or you could compute other metrics)
-        golden_accuracy = 100
+        # Load the corresponding trained model
+        try:
+            model = load_model(exercise_type)
+        except FileNotFoundError:
+            continue
 
-        # Create a grouped bar chart comparing the user vs. golden performance
-        fig = go.Figure(data=[
-            go.Bar(name='User', x=['Performance'], y=[user_accuracy], marker_color='blue'),
-            go.Bar(name='Golden Standard', x=['Performance'], y=[golden_accuracy], marker_color='green')
-        ])
-        fig.update_layout(
-            barmode='group', 
-            title=f"Exercise Form: {entry['display_date']}",
-            yaxis=dict(title="Accuracy (%)"),
-            height=400,
+        # Load the user's CSV file
+        user_df = pd.read_csv(filepath)
+
+        # Predict form correctness using the trained model
+        predictions = predict_form(model, user_df)
+
+        # Calculate performance metrics
+        total_count = len(predictions)
+        correct_count = sum(predictions)  # Assuming 1 = proper form, 0 = improper form
+        user_accuracy = (correct_count / total_count * 100) if total_count > 0 else 0
+
+        # Load golden data for comparison
+        golden_data_path = os.path.join(app.config['GOLDEN_DATA_FOLDER'], exercise_type, "golden_data.csv")
+        if os.path.exists(golden_data_path):
+            golden_df = pd.read_csv(golden_data_path)
+        else:
+            golden_df = pd.DataFrame()  # Empty DataFrame if golden data is not found
+
+        # Create 3D plots for accelerometer and gyroscope data
+        acc_3d_fig = go.Figure()
+        gyro_3d_fig = go.Figure()
+
+        # Add user accelerometer data to the 3D plot
+        acc_3d_fig.add_trace(go.Scatter3d(
+            x=user_df["lsm6dsv16x_acc_x [g]"],
+            y=user_df["lsm6dsv16x_acc_y [g]"],
+            z=user_df["lsm6dsv16x_acc_z [g]"],
+            mode='lines',
+            name='User Acc',
+            line=dict(color='blue', width=2)
+        ))
+
+        # Add golden accelerometer data to the 3D plot
+        if not golden_df.empty:
+            acc_3d_fig.add_trace(go.Scatter3d(
+                x=golden_df["lsm6dsv16x_acc_x [g]"],
+                y=golden_df["lsm6dsv16x_acc_y [g]"],
+                z=golden_df["lsm6dsv16x_acc_z [g]"],
+                mode='lines',
+                name='Golden Acc',
+                line=dict(color='green', width=2, dash='dash')
+            ))
+
+        # Update layout for the accelerometer 3D plot
+        acc_3d_fig.update_layout(
+            title=f"Accelerometer Data: {entry['display_date']}",
+            scene=dict(
+                xaxis_title='Acc X [g]',
+                yaxis_title='Acc Y [g]',
+                zaxis_title='Acc Z [g]'
+            ),
+            height=500,
+            margin=dict(l=50, r=50, t=80, b=50)
         )
-        graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-        
+
+        # Add user gyroscope data to the 3D plot
+        gyro_3d_fig.add_trace(go.Scatter3d(
+            x=user_df["lsm6dsv16x_gyro_x [dps]"],
+            y=user_df["lsm6dsv16x_gyro_y [dps]"],
+            z=user_df["lsm6dsv16x_gyro_z [dps]"],
+            mode='lines',
+            name='User Gyro',
+            line=dict(color='red', width=2)
+        ))
+
+        # Add golden gyroscope data to the 3D plot
+        if not golden_df.empty:
+            gyro_3d_fig.add_trace(go.Scatter3d(
+                x=golden_df["lsm6dsv16x_gyro_x [dps]"],
+                y=golden_df["lsm6dsv16x_gyro_y [dps]"],
+                z=golden_df["lsm6dsv16x_gyro_z [dps]"],
+                mode='lines',
+                name='Golden Gyro',
+                line=dict(color='orange', width=2, dash='dash')
+            ))
+
+        # Update layout for the gyroscope 3D plot
+        gyro_3d_fig.update_layout(
+            title=f"Gyroscope Data: {entry['display_date']}",
+            scene=dict(
+                xaxis_title='Gyro X [dps]',
+                yaxis_title='Gyro Y [dps]',
+                zaxis_title='Gyro Z [dps]'
+            ),
+            height=500,
+            margin=dict(l=50, r=50, t=80, b=50)
+        )
+
+        # Convert the figures to JSON
+        acc_3d_graphJSON = json.dumps(acc_3d_fig, cls=plotly.utils.PlotlyJSONEncoder)
+        gyro_3d_graphJSON = json.dumps(gyro_3d_fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+        # Add the 3D plots to the plots list
         plots.append({
-            'graphJSON': graphJSON,
+            'acc_3d_graphJSON': acc_3d_graphJSON,
+            'gyro_3d_graphJSON': gyro_3d_graphJSON,
             'date': entry['display_date'],
             'accuracy': entry['accuracy']
         })
