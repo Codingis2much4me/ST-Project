@@ -1,16 +1,33 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import os
 import pandas as pd
 from datetime import datetime
 import plotly
 import plotly.graph_objs as go
 import json
-from model import load_model, predict_form  # Import the model functions
+from model import load_model, predict_form
+from models import db, User, ExerciseEntry  # Import our database models
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your-secret-key-goes-here'  # Change this to a random secure key
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///exercise_app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['GOLDEN_DATA_FOLDER'] = 'golden_data'  # Folder for golden data
+app.config['GOLDEN_DATA_FOLDER'] = 'golden_data'
 app.config['ALLOWED_EXTENSIONS'] = {'csv'}
+
+# Initialize the database
+db.init_app(app)
+
+# Initialize login manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 # Ensure upload and golden data folders exist
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
@@ -18,30 +35,94 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 if not os.path.exists(app.config['GOLDEN_DATA_FOLDER']):
     os.makedirs(app.config['GOLDEN_DATA_FOLDER'])
 
+# Define our 5 exercise types
+EXERCISE_TYPES = ['Lateral raises', 'Single arm extensions', 'Bicep curls', 'Hammer curls', 'Single arm tricep extensions']
+
 # Helper function to check file extension
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-# Define our 5 exercise types
-EXERCISE_TYPES = ['Lateral raises', 'Single arm extensions', 'Bicep curls', 'Hammer curls', 'Single arm tricep extensions']
+# Create a function to get user-specific upload folder
+def get_user_upload_folder(user_id):
+    user_folder = os.path.join(app.config['UPLOAD_FOLDER'], str(user_id))
+    if not os.path.exists(user_folder):
+        os.makedirs(user_folder)
+    return user_folder
 
-# Store for exercise data entries
-exercise_entries = []
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+        
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        
+        if user is None or not user.check_password(password):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+            
+        login_user(user, remember=True)
+        return redirect(url_for('index'))
+        
+    return render_template('login.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+        
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        
+        if User.query.filter_by(username=username).first():
+            flash('Username already exists')
+            return redirect(url_for('signup'))
+            
+        if User.query.filter_by(email=email).first():
+            flash('Email already registered')
+            return redirect(url_for('signup'))
+            
+        user = User(username=username, email=email)
+        user.set_password(password)
+        db.session.add(user)
+        db.session.commit()
+        
+        flash('Account created successfully! Please log in.')
+        return redirect(url_for('login'))
+        
+    return render_template('signup.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 @app.route('/')
+@login_required
 def index():
     # Group exercise entries by type
     exercise_groups = {}
     for ex_type in EXERCISE_TYPES:
+        entries = ExerciseEntry.query.filter_by(
+            user_id=current_user.id, 
+            exercise_type=ex_type
+        ).all()
+        
         exercise_groups[ex_type] = {
             'name': ex_type,
-            'entries': [entry for entry in exercise_entries if entry['exercise_type'] == ex_type],
-            'has_data': any(entry['exercise_type'] == ex_type for entry in exercise_entries)
+            'entries': entries,
+            'has_data': len(entries) > 0
         }
     
     return render_template('index.html', exercise_groups=exercise_groups)
 
 @app.route('/upload', methods=['GET', 'POST'])
+@login_required
 def upload():
     if request.method == 'POST':
         # Get form data
@@ -54,16 +135,20 @@ def upload():
             display_date = datetime.strptime(exercise_date, '%Y-%m-%d').strftime('%B %d, %Y')
             date_code = exercise_date.replace('-', '')
             
+            # Get user-specific upload folder
+            user_folder = get_user_upload_folder(current_user.id)
+            
             # Save the file
             filename = f"{exercise_type}_{date_code}.csv"
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            filepath = os.path.join(user_folder, filename)
             file.save(filepath)
 
             # Load the corresponding trained model
             try:
                 model = load_model(exercise_type)
             except FileNotFoundError:
-                return f"No trained model found for exercise: {exercise_type}", 404
+                flash(f"No trained model found for exercise: {exercise_type}")
+                return redirect(url_for('upload'))
 
             # Load the user's CSV file
             user_df = pd.read_csv(filepath)
@@ -76,30 +161,38 @@ def upload():
             correct_count = sum(predictions)  # Assuming 1 = proper form, 0 = improper form
             accuracy = (correct_count / total_count * 100) if total_count > 0 else 0
 
-            # Add exercise data to the list
-            exercise_entries.append({
-                'exercise_type': exercise_type,
-                'display_date': display_date,
-                'date_code': date_code,
-                'filename': filename,
-                'accuracy': round(accuracy, 1),
-                'date': exercise_date  # Store the raw date for sorting
-            })
+            # Add exercise data to the database
+            new_entry = ExerciseEntry(
+                exercise_type=exercise_type,
+                display_date=display_date,
+                date_code=date_code,
+                filename=filename,
+                accuracy=round(accuracy, 1),
+                date=exercise_date,
+                user_id=current_user.id
+            )
+            db.session.add(new_entry)
+            db.session.commit()
 
+            flash('Data uploaded successfully!')
             return redirect(url_for('index'))
+        else:
+            flash('Invalid file format. Please upload a CSV file.')
+            
     return render_template('upload.html')
 
 @app.route('/dashboard/<exercise_type>')
+@login_required
 def dashboard(exercise_type):
-    """
-    Dashboard for a single exercise type.
-    Shows multiple plots for different dates if available.
-    """
-    # Get all entries for this exercise type
-    entries = [entry for entry in exercise_entries if entry['exercise_type'] == exercise_type]
+    # Get all entries for this exercise type and current user
+    entries = ExerciseEntry.query.filter_by(
+        user_id=current_user.id,
+        exercise_type=exercise_type
+    ).order_by(ExerciseEntry.date).all()
     
     if not entries:
-        return "No data found for this exercise", 404
+        flash('No data found for this exercise')
+        return redirect(url_for('index'))
 
     # Create plots for each date
     plots = []
@@ -108,18 +201,18 @@ def dashboard(exercise_type):
     progress_dates = []
     progress_accuracies = []
     
-    # Sort entries by date for the progress chart
-    sorted_entries = sorted(entries, key=lambda x: x.get('date', ''))
-    
-    for entry in sorted_entries:
+    for entry in entries:
+        # Get user-specific upload folder
+        user_folder = get_user_upload_folder(current_user.id)
+        
         # Load the user CSV data
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], entry['filename'])
+        filepath = os.path.join(user_folder, entry.filename)
         if not os.path.exists(filepath):
             continue
 
         # Add data for progress chart
-        progress_dates.append(entry['display_date'])
-        progress_accuracies.append(entry['accuracy'])
+        progress_dates.append(entry.display_date)
+        progress_accuracies.append(entry.accuracy)
 
         # Load the corresponding trained model
         try:
@@ -172,7 +265,7 @@ def dashboard(exercise_type):
 
         # Update layout for the accelerometer 3D plot
         acc_3d_fig.update_layout(
-            title=f"Accelerometer Data: {entry['display_date']}",
+            title=f"Accelerometer Data: {entry.display_date}",
             scene=dict(
                 xaxis_title='Acc X [g]',
                 yaxis_title='Acc Y [g]',
@@ -205,7 +298,7 @@ def dashboard(exercise_type):
 
         # Update layout for the gyroscope 3D plot
         gyro_3d_fig.update_layout(
-            title=f"Gyroscope Data: {entry['display_date']}",
+            title=f"Gyroscope Data: {entry.display_date}",
             scene=dict(
                 xaxis_title='Gyro X [dps]',
                 yaxis_title='Gyro Y [dps]',
@@ -223,10 +316,11 @@ def dashboard(exercise_type):
         plots.append({
             'acc_3d_graphJSON': acc_3d_graphJSON,
             'gyro_3d_graphJSON': gyro_3d_graphJSON,
-            'date': entry['display_date'],
-            'accuracy': entry['accuracy']
+            'date': entry.display_date,
+            'accuracy': entry.accuracy
         })
     
+        
     # Create progress chart if there's more than one data point
     progress_chart = None
     if len(progress_dates) > 1:
@@ -272,7 +366,7 @@ def dashboard(exercise_type):
         )
         
         progress_chart = json.dumps(progress_fig, cls=plotly.utils.PlotlyJSONEncoder)
-
+        
     return render_template('dashboard.html', 
                           exercise_type=exercise_type,
                           plots=plots,
