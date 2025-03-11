@@ -2,6 +2,7 @@
 import os
 import pandas as pd
 import numpy as np
+import pickle
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
@@ -17,6 +18,8 @@ MODEL_DIR = "models"
 
 # Ensure the model directory exists
 os.makedirs(MODEL_DIR, exist_ok=True)
+
+
 
 # Function to create time-series features
 def create_time_series_features(df, window_size=5):

@@ -1,12 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import os
+import pickle
 import pandas as pd
 from datetime import datetime
 import plotly
 import plotly.graph_objs as go
 import json
-from model import load_model, predict_form
+import joblib
+from model import create_time_series_features
 from models import db, User, ExerciseEntry  # Import our database models
 
 app = Flask(__name__)
@@ -37,6 +39,26 @@ if not os.path.exists(app.config['GOLDEN_DATA_FOLDER']):
 
 # Define our 5 exercise types
 EXERCISE_TYPES = ['Lateral raises', 'Single arm extensions', 'Bicep curls', 'Hammer curls', 'Single arm tricep extensions']
+
+def load_model(exercise_type):
+    """Load the model for the given exercise type from the models folder."""
+    model_path = os.path.join("models", f"{exercise_type}_model.pkl")
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model file not found: {model_path}")
+    with open(model_path, 'rb') as model_file:
+        model = joblib.load(model_file)
+        print(f"Model loaded type: {type(model)}")
+    return model
+
+
+def predict_form(dt_model, user_df):
+    # logging.info("Predicting form correctness...")
+    df = create_time_series_features(user_df)
+    feature_cols = df.columns.difference(["Time [s]", "label"])
+    predictions = dt_model.predict(df[feature_cols])
+    # logging.info("Form correctness predictions completed.")
+    return predictions
+
 
 # Helper function to check file extension
 def allowed_file(filename):
