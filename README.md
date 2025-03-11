@@ -25,6 +25,13 @@ To get started with the ST Project Dashboard, follow these steps:
     pip install -r requirements.txt
     ```
 
+
+4. Initialize the database:
+    ```bash
+    python init_db.py
+    ```
+    This will create the necessary database tables.
+   
 ## Usage
 
 To run the ST Project Dashboard locally, use the following command:
