@@ -10,7 +10,7 @@ import json
 import joblib
 from model import create_time_series_features
 from models import db, User, ExerciseEntry  # Import our database models
-
+from plotly.offline import plot
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-goes-here'  # Change this to a random secure key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///exercise_app.db'
@@ -330,14 +330,13 @@ def dashboard(exercise_type):
             margin=dict(l=50, r=50, t=80, b=50)
         )
 
-        # Convert the figures to JSON
-        acc_3d_graphJSON = json.dumps(acc_3d_fig, cls=plotly.utils.PlotlyJSONEncoder)
-        gyro_3d_graphJSON = json.dumps(gyro_3d_fig, cls=plotly.utils.PlotlyJSONEncoder)
+        acc_3d_html = plot(acc_3d_fig, output_type='div')
+        gyro_3d_html = plot(gyro_3d_fig, output_type='div')
 
         # Add the 3D plots to the plots list
         plots.append({
-            'acc_3d_graphJSON': acc_3d_graphJSON,
-            'gyro_3d_graphJSON': gyro_3d_graphJSON,
+            'acc_3d_html': acc_3d_html,
+            'gyro_3d_html': gyro_3d_html,
             'date': entry.display_date,
             'accuracy': entry.accuracy
         })

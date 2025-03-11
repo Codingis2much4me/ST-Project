@@ -180,20 +180,20 @@
                       <div class="col-lg-6">
                           <!-- 3D Accelerometer Plot -->
                           <div class="chart-card">
-                              <div class="chart-container" id="acc-3d-plot-{{ loop.index }}"></div>
-                              <div class="card-body text-center">
-                                  <h5 class="card-title">{{ plot.date }}</h5>
-                                  <p class="card-text">Your Accuracy: <strong>{{ plot.accuracy }}%</strong></p>
-                              </div>
+                            {{ plot.acc_3d_html | safe }}
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ plot.date }}</h5>
+                                <p class="card-text">Your Accuracy: <strong>{{ plot.accuracy }}%</strong></p>
+                            </div>
                           </div>
                           
                           <!-- 3D Gyroscope Plot -->
                           <div class="chart-card">
-                              <div class="chart-container" id="gyro-3d-plot-{{ loop.index }}"></div>
-                              <div class="card-body text-center">
-                                  <h5 class="card-title">{{ plot.date }}</h5>
-                                  <p class="card-text">Your Accuracy: <strong>{{ plot.accuracy }}%</strong></p>
-                              </div>
+                            {{ plot.gyro_3d_html | safe }}
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ plot.date }}</h5>
+                                <p class="card-text">Your Accuracy: <strong>{{ plot.accuracy }}%</strong></p>
+                            </div>
                           </div>
                       </div>
                   {% endfor %}
