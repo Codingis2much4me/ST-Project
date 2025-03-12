@@ -1,6 +1,20 @@
 # GymMetrics - Exercise Dashboard
 Repository for the ST Project Dashboard.
 
+
+To help you get started with the software, we have created a step-by-step video guide that explains the main features and how to use them.
+
+Watch the video below for a comprehensive walkthrough:
+[Click Here](IITGoa_DemoVideo.mp4)
+
+In the video, you'll learn how to:
+- Record and Upload the data
+- Navigate through the user interface
+- Perform common tasks
+- Familiarize yourself to the Gymmetrics Dashboard   
+
+If you prefer written instructions, check out the rest of the documentation below!
+
 ## Description
 
 The Exercise Tracking Dashboard is a web-based application built using Flask, Bootstrap, and Plotly. It allows users to upload CSV files containing exercise data, visualize accuracy trends over time, and analyze performance improvements through interactive graphs.
@@ -37,7 +51,6 @@ To get started with the ST Project Dashboard, follow these steps:
     This will create the necessary database tables.
    
 ## Usage
-
 1. To run the ST Project Dashboard locally, use the following command:
     ```bash
     python app.py
