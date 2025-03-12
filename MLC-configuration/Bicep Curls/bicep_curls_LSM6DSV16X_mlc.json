@@ -1,0 +1,2054 @@
+{
+    "description": "Generated sensor configuration for MLC core",
+    "date": "2025-03-12 18:43:01",
+    "json_format": {
+        "type": "reg_config",
+        "version": "2.0"
+    },
+    "application": {
+        "name": "MLC Tool",
+        "version": "2.0.7"
+    },
+    "sensors": [
+        {
+            "name": [
+                "LSM6DSV16X"
+            ],
+            "outputs": [
+                {
+                    "name": "Categorical output",
+                    "core": "MLC",
+                    "type": "uint8_t",
+                    "len": "1",
+                    "reg_addr": "0x70",
+                    "reg_name": "MLC1_SRC",
+                    "results": [
+                        {
+                            "code": "0x00",
+                            "label": "Bicep_curl_proper_form"
+                        },
+                        {
+                            "code": "0x04",
+                            "label": "Bicep_curl_improper_form"
+                        }
+                    ]
+                }
+            ],
+            "fifo_encodings": [
+                {
+                    "tag": "0x1B",
+                    "id": "0x0460",
+                    "label": "FILTER_IIR2_ACC_V"
+                },
+                {
+                    "tag": "0x1B",
+                    "id": "0x0462",
+                    "label": "FILTER_IIR2_GYRO_V"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0464",
+                    "label": "F1_ABS_MAXIMUM_ACC_V"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0466",
+                    "label": "F2_ABS_PEAK_TO_PEAK_ACC_V"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0468",
+                    "label": "F3_ENERGY_GYR_Y"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x046A",
+                    "label": "F4_MAXIMUM_GYR_Y"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x046C",
+                    "label": "F5_PEAK_TO_PEAK_GYR_Y"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x046E",
+                    "label": "F6_MEAN_ACC_X"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0470",
+                    "label": "F7_ABS_ZERO_CROSSING_ACC_V"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0472",
+                    "label": "F8_ABS_PEAK_TO_PEAK_GYR_V"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0474",
+                    "label": "F9_MINIMUM_GYR_Z"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0476",
+                    "label": "F10_ZERO_CROSSING_ACC_X"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0478",
+                    "label": "F11_POSITIVE_PEAK_DETECTOR_GYR_X"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x047A",
+                    "label": "F12_PEAK_DETECTOR_ACC_Y"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x047C",
+                    "label": "F13_MEAN_ACC_Z"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x047E",
+                    "label": "F14_NEGATIVE_ZERO_CROSSING_GYR_Y"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0480",
+                    "label": "F15_MEAN_GYR_Y"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0482",
+                    "label": "F16_ENERGY_GYR_X"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0484",
+                    "label": "F17_NEGATIVE_PEAK_DETECTOR_GYR_Z"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0486",
+                    "label": "F18_ABS_VARIANCE_ACC_V"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0488",
+                    "label": "F19_MINIMUM_GYR_X"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x048A",
+                    "label": "F20_POSITIVE_ZERO_CROSSING_ACC_X"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x048C",
+                    "label": "F21_ABS_POSITIVE_PEAK_DETECTOR_ACC_V"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x048E",
+                    "label": "F22_ABS_MAXIMUM_ACC_V_FILTER_1"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0490",
+                    "label": "F23_ABS_ENERGY_ACC_V_FILTER_1"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0492",
+                    "label": "F24_ABS_PEAK_TO_PEAK_ACC_V_FILTER_1"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0494",
+                    "label": "F25_ABS_ENERGY_ACC_V_FILTER_1"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0496",
+                    "label": "F26_ABS_MAXIMUM_GYR_V_FILTER_2"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x0498",
+                    "label": "F27_ABS_ENERGY_GYR_V_FILTER_2"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x049A",
+                    "label": "F28_ABS_PEAK_TO_PEAK_GYR_V_FILTER_2"
+                },
+                {
+                    "tag": "0x1C",
+                    "id": "0x049C",
+                    "label": "F29_ABS_ENERGY_GYR_V_FILTER_2"
+                }
+            ],
+            "configuration": [
+                {
+                    "type": "write",
+                    "address": "0x10",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x11",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x01",
+                    "data": "0x80"
+                },
+                {
+                    "type": "write",
+                    "address": "0x04",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x05",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x17",
+                    "data": "0x40"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x11"
+                },
+                {
+                    "type": "write",
+                    "address": "0x08",
+                    "data": "0xE8"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x3C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x11"
+                },
+                {
+                    "type": "write",
+                    "address": "0x08",
+                    "data": "0xF1"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x01"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x21"
+                },
+                {
+                    "type": "write",
+                    "address": "0x08",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x11"
+                },
+                {
+                    "type": "write",
+                    "address": "0x08",
+                    "data": "0xEA"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x4C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x04"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x64"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x04"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x01"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x14"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x11"
+                },
+                {
+                    "type": "write",
+                    "address": "0x08",
+                    "data": "0xF2"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFF"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x11"
+                },
+                {
+                    "type": "write",
+                    "address": "0x08",
+                    "data": "0xFA"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x5C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x03"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x9E"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x04"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xAA"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x04"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x31"
+                },
+                {
+                    "type": "write",
+                    "address": "0x08",
+                    "data": "0x5C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x0D"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xA9"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x1E"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xA9"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x9E"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xF2"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xBF"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xE5"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x3B"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x1D"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xA9"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x1E"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xA9"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x9E"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xF2"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xBF"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xE5"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x3B"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x3F"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x11"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x90"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x03"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x90"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x02"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x1C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x11"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x1C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x03"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x1C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x04"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x04"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x90"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xCA"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x32"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x03"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xA4"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x10"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x20"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x04"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x04"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x62"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x34"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x0C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x18"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xE2"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x37"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x0A"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x08"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7E"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x30"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x0C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x08"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x1C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x73"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x3D"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x1C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x02"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x18"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x0E"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x20"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xC5"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x36"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x01"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x90"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x41"
+                },
+                {
+                    "type": "write",
+                    "address": "0x08",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x10"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x18"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x06"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x04"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x93"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x36"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x0C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x90"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xCA"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x32"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x11"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xAC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x02"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xAC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x03"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xAC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x02"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xAC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x11"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xB0"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x02"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xB0"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x03"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xB0"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x02"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xB0"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x1F"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x41"
+                },
+                {
+                    "type": "write",
+                    "address": "0x08",
+                    "data": "0x9E"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x01",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x01",
+                    "data": "0x80"
+                },
+                {
+                    "type": "write",
+                    "address": "0x17",
+                    "data": "0x40"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x41"
+                },
+                {
+                    "type": "write",
+                    "address": "0x08",
+                    "data": "0xAA"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xBE"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x3C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x05"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x80"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xB5"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x4D"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x40"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xA2"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xFC"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x57"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xBA"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x10"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x28"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x44"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xCE"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x59"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x45"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x40"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xE2"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xD9"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x55"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x0A"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x82"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xD8"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x3F"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xBB"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x34"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x2A"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xA5"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xBD"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xB7"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x40"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xA5"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xD7"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x3C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x04"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xE0"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xC4"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x5C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x40"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xA2"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x7A"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x38"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xC4"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xC1"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xD8"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xB4"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xD4"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xCE"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xD7"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xB9"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0x40"
+                },
+                {
+                    "type": "write",
+                    "address": "0x09",
+                    "data": "0xE8"
+                },
+                {
+                    "type": "write",
+                    "address": "0x01",
+                    "data": "0x80"
+                },
+                {
+                    "type": "write",
+                    "address": "0x17",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x04",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x05",
+                    "data": "0x10"
+                },
+                {
+                    "type": "write",
+                    "address": "0x02",
+                    "data": "0x01"
+                },
+                {
+                    "type": "write",
+                    "address": "0x01",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x5E",
+                    "data": "0x02"
+                },
+                {
+                    "type": "write",
+                    "address": "0x01",
+                    "data": "0x80"
+                },
+                {
+                    "type": "write",
+                    "address": "0x0D",
+                    "data": "0x01"
+                },
+                {
+                    "type": "write",
+                    "address": "0x60",
+                    "data": "0x45"
+                },
+                {
+                    "type": "write",
+                    "address": "0x45",
+                    "data": "0x02"
+                },
+                {
+                    "type": "write",
+                    "address": "0x01",
+                    "data": "0x00"
+                },
+                {
+                    "type": "write",
+                    "address": "0x10",
+                    "data": "0x0C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x11",
+                    "data": "0x0C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x15",
+                    "data": "0x0C"
+                },
+                {
+                    "type": "write",
+                    "address": "0x17",
+                    "data": "0x03"
+                }
+            ]
+        }
+    ],
+    "staiotcraft_info": {
+        "project_name": "test_curls",
+        "project_id": "bddf64cc-445c-49fe-8777-60538251055f",
+        "model_name": "bicep_curls_12-3-25",
+        "model_id": "47dd26c5-ab62-42a4-88d4-18b4585934f8"
+    }
+}
