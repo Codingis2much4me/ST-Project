@@ -15,6 +15,9 @@ In the video, you'll learn how to:
 If you prefer written instructions, check out the rest of the documentation below!
 
 ## NOTE
+Our team's detailed project report is present in [Project Report](ST_Project_IIT_Goa.pdf)
+
+## NOTE
 The datasets required for this project are stored in the training_data and golden_data folders. Please ensure these folders are properly populated with the necessary data before running the project.
 
 ## Description
