@@ -1,0 +1,44 @@
+Lateral Raises
+              Model  Train Accuracy  CV Mean Accuracy  CV StdDev  Test Accuracy
+        Extra Trees          100.00             99.55       0.59         100.00
+  Gradient Boosting           99.96             99.53       0.56          99.85
+      Random Forest          100.00             99.46       0.50          99.67
+      Decision Tree          100.00             99.40       0.39          99.55
+Logistic Regression           99.65             99.56       0.31          98.71
+                KNN          100.00             92.99       0.60          88.28
+
+Sidearm Extensions
+              Model  Train Accuracy  CV Mean Accuracy  CV StdDev  Test Accuracy
+      Decision Tree           100.0             99.89       0.15         100.00
+      Random Forest           100.0             99.89       0.15         100.00
+  Gradient Boosting           100.0             99.89       0.15         100.00
+        Extra Trees           100.0             99.90       0.15         100.00
+Logistic Regression           100.0             99.85       0.20         100.00
+                KNN           100.0             88.56       0.79          92.68
+
+Bicep Curls
+              Model  Train Accuracy  CV Mean Accuracy  CV StdDev  Test Accuracy
+      Random Forest          100.00             83.47      10.89          97.60
+        Extra Trees          100.00             84.47      10.82          97.59
+      Decision Tree          100.00             82.12       9.44          94.95
+  Gradient Boosting           92.53             80.98      11.01          94.40
+                KNN          100.00             74.63       3.71          83.17
+Logistic Regression           60.86             53.05       3.93          56.69
+
+Hammer Curls
+              Model  Train Accuracy  CV Mean Accuracy  CV StdDev  Test Accuracy
+      Decision Tree          100.00             99.68       0.32         100.00
+      Random Forest          100.00             99.79       0.21         100.00
+  Gradient Boosting           99.99             99.69       0.32         100.00
+        Extra Trees          100.00            100.00       0.00         100.00
+Logistic Regression           98.29             97.16       0.93          99.39
+                KNN          100.00             90.82       1.39          91.71
+
+Single Arm Tricep Extensions
+              Model  Train Accuracy  CV Mean Accuracy  CV StdDev  Test Accuracy
+        Extra Trees          100.00             97.76       0.99          97.73
+  Gradient Boosting           99.54             97.74       1.32          97.35
+      Decision Tree          100.00             97.38       1.19          96.85
+      Random Forest          100.00             97.49       1.30          96.70
+Logistic Regression           96.28             94.44       2.64          94.55
+                KNN          100.00             80.36       4.25          86.45
