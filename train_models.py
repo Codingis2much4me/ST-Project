@@ -1,4 +1,4 @@
-from model import train_decision_tree
+from model import benchmark_models_with_cv
 
 # List of exercises
 exercises = ['Lateral raises', 'Sidearm extensions', 'Bicep curls', 'Hammer curls', 'Single arm tricep extensions']
@@ -6,5 +6,5 @@ exercises = ['Lateral raises', 'Sidearm extensions', 'Bicep curls', 'Hammer curl
 # Train and save models for all exercises
 for exercise in exercises:
     print(f"Training model for {exercise}...")
-    train_decision_tree(exercise)
+    benchmark_models_with_cv(exercise)
     print(f"Model for {exercise} saved.\n")

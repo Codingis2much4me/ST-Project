@@ -39,24 +39,29 @@ if not os.path.exists(app.config['GOLDEN_DATA_FOLDER']):
 
 # Define our 5 exercise types
 EXERCISE_TYPES = ['Lateral raises', 'Single arm extensions', 'Bicep curls', 'Hammer curls', 'Single arm tricep extensions']
+MODEL_DIR = 'models'
 
 def load_model(exercise_type):
-    """Load the model for the given exercise type from the models folder."""
-    model_path = os.path.join("models", f"{exercise_type}_model.pkl")
+    """Load the best model for the given exercise type."""
+    model_path = os.path.join(MODEL_DIR, f"{exercise_type}_best.pkl")
+
     if not os.path.exists(model_path):
-        raise FileNotFoundError(f"Model file not found: {model_path}")
-    with open(model_path, 'rb') as model_file:
+        raise FileNotFoundError(
+            f"Best model file not found: {model_path}. Run benchmarking first."
+        )
+
+    with open(model_path, "rb") as model_file:
         model = joblib.load(model_file)
-        print(f"Model loaded type: {type(model)}")
+        print(f"✅ Loaded best model for {exercise_type}: {type(model)}")
+
     return model
 
 
-def predict_form(dt_model, user_df):
-    # logging.info("Predicting form correctness...")
+def predict_form(model, user_df):
+    """Predict form correctness using the provided best model."""
     df = create_time_series_features(user_df)
     feature_cols = df.columns.difference(["Time [s]", "label"])
-    predictions = dt_model.predict(df[feature_cols])
-    # logging.info("Form correctness predictions completed.")
+    predictions = model.predict(df[feature_cols])
     return predictions
 
 
