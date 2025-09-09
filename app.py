@@ -129,6 +129,11 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html')
+
 @app.route('/')
 @login_required
 def index():
@@ -146,7 +151,7 @@ def index():
             'has_data': len(entries) > 0
         }
     
-    return render_template('index.html', exercise_groups=exercise_groups)
+    return render_template('index.html', exercise_groups=exercise_groups, datetime=datetime)
 
 @app.route('/upload', methods=['GET', 'POST'])
 @login_required
@@ -206,7 +211,7 @@ def upload():
         else:
             flash('Invalid file format. Please upload a CSV file.')
             
-    return render_template('upload.html')
+    return render_template('upload.html', exercise_types=EXERCISE_TYPES)
 
 @app.route('/dashboard/<exercise_type>')
 @login_required
